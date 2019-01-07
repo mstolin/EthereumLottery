@@ -2,7 +2,7 @@ pragma solidity >=0.4.22 <0.6.0;
 
 contract Lottery {
     
-    address payable[] private players;
+    address payable[] public players;
     
     address public owner;
     
@@ -13,12 +13,11 @@ contract Lottery {
     
     function() external payable {
         require(msg.value > 0);
+        players.push(msg.sender);
         
         if(players.length == 4) {
             payWinner();
-            players = new address payable[](0);
-        } else {
-            players.push(msg.sender);
+            players = new address payable [](0);
         }
     }
     
